@@ -2,11 +2,11 @@
 
 Approximates the current location of Safari on your system.
 
-Based off of [`chrome-location`](https://github.com/hughsk/chrome-location).
+Based on [`chrome-location`](https://github.com/hughsk/chrome-location).
 
 ## Usage
 
-### `location = require('chrome-location')`
+### `location = require('safari-location')`
 
 Returns the path to Safari as a string.
 
