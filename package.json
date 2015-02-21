@@ -1,0 +1,35 @@
+{
+  "name": "safari-location",
+  "version": "0.1.0",
+  "description": "Approximates the current location of Safari on your system",
+  "main": "index.js",
+  "bin": {
+    "safari-location": "bin.js"
+  },
+  "license": "MIT",
+  "scripts": {},
+  "author": {
+    "name": "David Clark",
+    "email": "david.dave.clark@gmail.com",
+    "url": "http://davidtheclark.com"
+  },
+  "dependencies": {
+    "userhome": "^1.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidtheclark/safari-location.git"
+  },
+  "keywords": [
+    "safari",
+    "spawn",
+    "location",
+    "process",
+    "guesstimate"
+  ],
+  "homepage": "https://github.com/davidtheclark/safari-location",
+  "bugs": {
+    "url": "https://github.com/davidtheclark/safari-location/issues"
+  }
+}
