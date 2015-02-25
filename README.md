@@ -8,11 +8,11 @@ Based on [`chrome-location`](https://github.com/hughsk/chrome-location).
 
 ### `location = require('safari-location')`
 
-Returns the path to Safari as a string.
+Returns the path to Safari as a string, or `null` if Safari is not found.
 
 ### CLI Usage
 
-`stdout` path to Safari:
+`stdout` path to Safari (or `null`):
 ```bash
 > safari-location
 # /Applications/Safari.app/Contents/MacOS/Safari
