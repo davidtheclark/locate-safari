@@ -1,3 +1,7 @@
 #!/usr/bin/env node
 
-console.log(require('./'));
+var safariLocation = require('./');
+
+safariLocation().then(function(r) {
+  console.log(r);
+});

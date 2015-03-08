@@ -1,39 +1,58 @@
 var fs = require('fs');
+var exec = require('child_process').exec;
+var Promise = require('es6-promise').Promise;
+var userhome = require('userhome');
+var queue = require('queue-async');
+
 var osx = process.platform === 'darwin';
 var win = process.platform === 'win32'
 
-if (osx) {
-  module.exports = getOSXPath();
-} else if (win) {
-  module.exports = getWinPath();
+module.exports = function(cb) {
+  return new Promise(function(resolve) {
+    var finisher = cb || function(r) {
+      resolve(r);
+    };
+
+    if (osx) {
+      getOSXPath(finisher);
+    } else if (win) {
+      getWinPath(finisher);
+    } else {
+      finisher(null);
+    }
+  });
 }
 
-module.exports = module.exports || null;
-
-function getOSXPath() {
-  var osxSuffix = '/Contents/MacOS/Safari';
-  var regPath = '/Applications/Safari.app' + osxSuffix;
-  var altPath = require('userhome')(regPath.slice(1));
+function getOSXPath(finisher) {
+  var toExec = '/Contents/MacOS/Safari';
+  var regPath = '/Applications/Safari.app' + toExec;
+  var altPath = userhome(regPath.slice(1));
   var mdFindCmd = 'mdfind \'kMDItemDisplayName == "Safari" && kMDItemKind == Application\'';
 
-  if (fs.existsSync(regPath)) {
-    return regPath;
+  queue(1)
+    .defer(tryLocation, regPath)
+    .defer(tryLocation, altPath)
+    .defer(tryMd);
+
+  function tryLocation(p, cb) {
+    fs.exists(p, function(exists) {
+      if (exists) finisher(p);
+      else cb();
+    });
   }
 
-  if (fs.existsSync(altPath)) {
-    return altPath;
+  function tryMdfind(cb) {
+    exec(mdFindCmd, function(err, stdout) {
+      if (err || !stdout) cb();
+      else finisher(stdout.trim() + toExec);
+    })
   }
-
-  var foundPath = require('child_process').execSync(mdFindCmd, { encoding: 'utf8' });
-  return (foundPath)
-    ? foundPath.trim() + osxSuffix
-    : null;
 }
 
-function getWinPath() {
+function getWinPath(finisher) {
   var winPath = process.env['PROGRAMFILES(X86)'] + '\\Safari\\Safari.exe';
 
-  return fs.existsSync(winPath)
-    ? winPath
-    : null;
+  fs.exists(winPath, function(exists) {
+    finisher(exists ? winPath : null);
+  });
 }
