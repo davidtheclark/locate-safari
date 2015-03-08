@@ -17,9 +17,6 @@ safariLocation.then(function(l) {
   console.log(l);
 });
 ```
-### `location = require('safari-location')`
-
-Returns the path to Safari as a string, or `null` if Safari is not found.
 
 ### CLI Usage
 
