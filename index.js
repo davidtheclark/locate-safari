@@ -41,7 +41,7 @@ function getOSXPath(finisher) {
     });
   }
 
-  function tryMdfind(cb) {
+  function tryMd(cb) {
     exec(mdFindCmd, function(err, stdout) {
       if (err || !stdout) cb();
       else finisher(stdout.trim() + toExec);

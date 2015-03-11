@@ -1,7 +1,7 @@
 {
   "name": "safari-location",
-  "version": "0.1.0",
-  "description": "Approximates the current location of Safari on your system",
+  "version": "0.2.0",
+  "description": "Gets the current location of Safari on your system",
   "main": "index.js",
   "bin": {
     "safari-location": "bin.js"
@@ -14,8 +14,8 @@
     "url": "http://davidtheclark.com"
   },
   "dependencies": {
-    "es6-promise": "^2.0.1",
-    "queue-async": "^1.0.7",
+    "es6-promise": "^2.0.0",
+    "queue-async": "^1.0.0",
     "userhome": "^1.0.0"
   },
   "devDependencies": {},
@@ -25,10 +25,9 @@
   },
   "keywords": [
     "safari",
-    "spawn",
-    "location",
-    "process",
-    "guesstimate"
+    "browser",
+    "locate",
+    "find"
   ],
   "homepage": "https://github.com/davidtheclark/safari-location",
   "bugs": {
