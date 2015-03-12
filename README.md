@@ -1,19 +1,19 @@
-# safari-location [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
+# locate-safari [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Approximates the current location of Safari on your system.
+Finds Safari on your system.
 
 Based on [`chrome-location`](https://github.com/hughsk/chrome-location).
 
 ## Usage
 
 ```js
-var safariLocation = require('safari-location');
+var locateSafari = require('locate-safari');
 // Use a callback
-safariLocation(function(l) {
+locateSafari(function(l) {
   console.log(l);
 });
 // Use the returned Promise
-safariLocation.then(function(l) {
+locateSafari.then(function(l) {
   console.log(l);
 });
 ```
@@ -22,16 +22,16 @@ safariLocation.then(function(l) {
 
 `stdout` path to Safari (or `null`):
 ```bash
-> safari-location
+> locate-safari
 # /Applications/Safari.app/Contents/MacOS/Safari
 ```
 
 Open Safari (you'll need to use quotes if Safari's path has spaces in it):
 
 ```bash
-> "`safari-location`"
+> "`locate-safari`"
 ```
 
 ## License
 
-MIT. See [LICENSE.md](http://github.com/davidtheclark/safari-location/blob/master/LICENSE.md) for details.
+MIT. See [LICENSE.md](http://github.com/davidtheclark/locate-safari/blob/master/LICENSE.md) for details.

@@ -1,10 +1,10 @@
 {
-  "name": "safari-location",
+  "name": "locate-safari",
   "version": "0.2.0",
-  "description": "Gets the current location of Safari on your system",
+  "description": "Find Safari on your system",
   "main": "index.js",
   "bin": {
-    "safari-location": "bin.js"
+    "locate-safari": "bin.js"
   },
   "license": "MIT",
   "scripts": {},
@@ -21,7 +21,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git://github.com/davidtheclark/safari-location.git"
+    "url": "git://github.com/davidtheclark/locate-safari.git"
   },
   "keywords": [
     "safari",
@@ -29,8 +29,8 @@
     "locate",
     "find"
   ],
-  "homepage": "https://github.com/davidtheclark/safari-location",
+  "homepage": "https://github.com/davidtheclark/locate-safari",
   "bugs": {
-    "url": "https://github.com/davidtheclark/safari-location/issues"
+    "url": "https://github.com/davidtheclark/locate-safari/issues"
   }
 }
