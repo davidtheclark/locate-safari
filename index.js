@@ -4,18 +4,13 @@ var Promise = require('es6-promise').Promise;
 var userhome = require('userhome');
 var queue = require('queue-async');
 
-var osx = process.platform === 'darwin';
-var win = process.platform === 'win32'
-
 module.exports = function(cb) {
   return new Promise(function(resolve) {
-    var finisher = cb || function(r) {
-      resolve(r);
-    };
+    var finisher = cb || resolve;
 
-    if (osx) {
+    if (process.platform === 'darwin') {
       getOSXPath(finisher);
-    } else if (win) {
+    } else if (process.platform === 'win32') {
       getWinPath(finisher);
     } else {
       finisher(null);
@@ -30,29 +25,35 @@ function getOSXPath(finisher) {
   var mdFindCmd = 'mdfind \'kMDItemDisplayName == "Safari" && kMDItemKind == Application\'';
 
   queue(1)
-    .defer(tryLocation, regPath)
-    .defer(tryLocation, altPath)
+    .defer(tryLocation, regPath, finisher)
+    .defer(tryLocation, altPath, finisher)
     .defer(tryMd);
 
-  function tryLocation(p, cb) {
-    fs.exists(p, function(exists) {
-      if (exists) finisher(p);
-      else cb();
-    });
-  }
-
-  function tryMd(cb) {
+  function tryMd(next) {
     exec(mdFindCmd, function(err, stdout) {
-      if (err || !stdout) cb();
+      if (err || !stdout) next();
       else finisher(stdout.trim() + toExec);
     })
   }
 }
 
 function getWinPath(finisher) {
-  var winPath = process.env['PROGRAMFILES(X86)'] + '\\Safari\\Safari.exe';
+  var toExec = '\\Safari\\Safari.exe';
+  var prefixes = [
+    process.env.PROGRAMFILES,
+    process.env['PROGRAMFILES(X86)']
+  ];
 
-  fs.exists(winPath, function(exists) {
-    finisher(exists ? winPath : null);
+  var q = queue(1);
+  prefixes.forEach(function(pfx) {
+    q.defer(tryLocation, pfx + toExec, finisher);
+  });
+  q.awaitAll(function() { finisher(null); });
+}
+
+function tryLocation(p, success, next) {
+  fs.exists(p, function(exists) {
+    if (exists) success(p);
+    else next();
   });
 }
